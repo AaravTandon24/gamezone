@@ -1,53 +1,59 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import GameCard from "@/components/game-card";
 import Navbar from "@/components/navbar";
 
-const games = [
-  {
-    id: "1",
-    title: "Cyberpunk 2077",
-    image: "/placeholder.svg?height=200&width=350",
-    users: 128,
-    messages: 1024,
-  },
-  {
-    id: "2",
-    title: "Elden Ring",
-    image: "/placeholder.svg?height=200&width=350",
-    users: 256,
-    messages: 2048,
-  },
-  {
-    id: "3",
-    title: "Baldur's Gate 3",
-    image: "/placeholder.svg?height=200&width=350",
-    users: 192,
-    messages: 1536,
-  },
-  {
-    id: "4",
-    title: "Starfield",
-    image: "/placeholder.svg?height=200&width=350",
-    users: 164,
-    messages: 1280,
-  },
-  {
-    id: "5",
-    title: "The Legend of Zelda",
-    image: "/placeholder.svg?height=200&width=350",
-    users: 210,
-    messages: 1792,
-  },
-  {
-    id: "6",
-    title: "Call of Duty: Warzone",
-    image: "/placeholder.svg?height=200&width=350",
-    users: 320,
-    messages: 2560,
-  },
-];
-
 export default function Home() {
+  const [games, setGames] = useState<
+    Array<{
+      id: string;
+      title: string;
+      image: string;
+      users: number;
+      messages: number;
+    }>
+  >([]);
+
+  useEffect(() => {
+    async function fetchGames() {
+      try {
+        const { data, error } = await supabase
+          .from("chatrooms")
+          .select("id, title, image");
+
+        console.log("Supabase response:", { data, error });
+
+        if (error) {
+          console.error("Supabase error fetching chatrooms:", error.message);
+          return;
+        }
+
+        if (!data || data.length === 0) {
+          console.warn("No chatrooms found.");
+          return;
+        }
+
+        // Use the actual image from the database, and provide defaults if missing
+        const formattedGames = data.map((game) => ({
+          id: game.id,
+          title: game.title,
+          image: game.image || "/placeholder.svg", // Use database image, fallback to placeholder
+          users: Math.floor(Math.random() * 100), // Fake user count for now
+          messages: Math.floor(Math.random() * 500), // Fake messages for now
+        }));
+
+        setGames(formattedGames);
+      } catch (err) {
+        console.error("Unexpected error fetching chatrooms:", err);
+      }
+    }
+
+    fetchGames();
+  }, []);
+
   return (
     <div className="min-h-screen bg-black">
       <Navbar />

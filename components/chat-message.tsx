@@ -2,16 +2,16 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface ChatMessageProps {
   message: {
-    id: number;
+    id: string; // Changed from number to string (UUID)
     user: string;
     content: string;
-    timestamp: string;
+    created_at: string;
     isCurrentUser: boolean;
   };
 }
 
 export default function ChatMessage({ message }: ChatMessageProps) {
-  const { user, content, timestamp, isCurrentUser } = message;
+  const { user, content, created_at, isCurrentUser } = message;
 
   return (
     <div className={`flex ${isCurrentUser ? "justify-end" : "justify-start"}`}>
@@ -43,7 +43,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
             >
               {user}
             </span>
-            <span className="text-xs text-gray-500">{timestamp}</span>
+            <span className="text-xs text-gray-500">{created_at}</span>
           </div>
 
           <div

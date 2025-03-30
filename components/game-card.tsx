@@ -18,13 +18,13 @@ export default function GameCard({ game }: GameCardProps) {
     <Card className="bg-gray-900 border-green-700 hover:border-green-500 transition-all duration-300 overflow-hidden">
       <div className="relative h-48 overflow-hidden">
         <img
-          src={game.image || "/placeholder.svg"}
-          alt={game.title}
+          src={game.image || "/placeholder.svg"} // ✅ Handle missing image
+          alt={game.title || "Chatroom"} // ✅ Handle missing title
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
         <h3 className="absolute bottom-4 left-4 text-xl font-bold text-white">
-          {game.title}
+          {game.title || "Unnamed Chatroom"} {/* ✅ Handle missing title */}
         </h3>
       </div>
 
@@ -32,11 +32,13 @@ export default function GameCard({ game }: GameCardProps) {
         <div className="flex justify-between text-green-400 text-sm">
           <div className="flex items-center">
             <Users className="h-4 w-4 mr-1" />
-            <span>{game.users} online</span>
+            <span>{game.users ?? 0} online</span>{" "}
+            {/* ✅ Handle missing users */}
           </div>
           <div className="flex items-center">
             <MessageSquare className="h-4 w-4 mr-1" />
-            <span>{game.messages} messages</span>
+            <span>{game.messages ?? 0} messages</span>{" "}
+            {/* ✅ Handle missing messages */}
           </div>
         </div>
       </CardContent>
