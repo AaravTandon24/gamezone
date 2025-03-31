@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Navbar from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -180,6 +183,56 @@ const upcomingReleases = [
 ];
 
 export default function PopularPage() {
+  const [trendingGamesWithImages, setTrendingGamesWithImages] = useState(trendingGames);
+  const [weeklyTopGamesWithImages, setWeeklyTopGamesWithImages] = useState(weeklyTopGames);
+  const [upcomingReleasesWithImages, setUpcomingReleasesWithImages] = useState(upcomingReleases);
+
+  useEffect(() => {
+    const fetchGameImages = async (games: any[], setGames: (games: any[]) => void) => {
+      const updatedGames = await Promise.all(
+        games.map(async (game) => {
+          try {
+            const response = await fetch(
+              `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}&search=${encodeURIComponent(game.title)}&page_size=1`,
+              {
+                headers: {
+                  'Accept': 'application/json',
+                },
+              }
+            );
+            const data = await response.json();
+            if (data.results && data.results.length > 0) {
+              // Get the background image from the game details
+              const gameDetails = await fetch(
+                `https://api.rawg.io/api/games/${data.results[0].id}?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}`,
+                {
+                  headers: {
+                    'Accept': 'application/json',
+                  },
+                }
+              );
+              const details = await gameDetails.json();
+              return {
+                ...game,
+                image: details.background_image || details.background_image_additional || game.image,
+              };
+            }
+            return game;
+          } catch (error) {
+            console.error(`Error fetching image for ${game.title}:`, error);
+            return game;
+          }
+        })
+      );
+      setGames(updatedGames);
+    };
+
+    // Fetch images for all game lists
+    fetchGameImages(trendingGames, setTrendingGamesWithImages);
+    fetchGameImages(weeklyTopGames, setWeeklyTopGamesWithImages);
+    fetchGameImages(upcomingReleases, setUpcomingReleasesWithImages);
+  }, []);
+
   return (
     <div className="min-h-screen bg-black">
       <Navbar />
@@ -200,7 +253,7 @@ export default function PopularPage() {
               Trending Now
             </h2>
 
-            {trendingGames.map((game) => (
+            {trendingGamesWithImages.map((game) => (
               <div
                 key={game.id}
                 className="bg-gray-900 border border-green-700 rounded-lg overflow-hidden"
@@ -311,7 +364,7 @@ export default function PopularPage() {
                   </div>
 
                   <TabsContent value="weekly" className="p-4 space-y-4">
-                    {weeklyTopGames.map((game, index) => (
+                    {weeklyTopGamesWithImages.map((game, index) => (
                       <div
                         key={game.id}
                         className="flex items-center space-x-3 p-2 hover:bg-gray-800 rounded-lg transition-colors"
@@ -347,7 +400,7 @@ export default function PopularPage() {
                   </TabsContent>
 
                   <TabsContent value="upcoming" className="p-4 space-y-4">
-                    {upcomingReleases.map((game) => (
+                    {upcomingReleasesWithImages.map((game) => (
                       <div
                         key={game.id}
                         className="flex items-center space-x-3 p-2 hover:bg-gray-800 rounded-lg transition-colors"
