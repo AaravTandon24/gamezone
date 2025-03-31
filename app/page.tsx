@@ -22,15 +22,15 @@ export default function Home() {
   const [filteredGames, setFilteredGames] = useState<typeof games>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchGames() {
       try {
+        setIsLoading(true);
         const { data, error } = await supabase
           .from("chatrooms")
           .select("id, name, image");
-
-        console.log("Supabase response:", { data, error });
 
         if (error) {
           console.error("Supabase error fetching chatrooms:", error.message);
@@ -51,47 +51,52 @@ export default function Home() {
           messages: Math.floor(Math.random() * 500),
         }));
 
-        // Fetch images from RAWG API
-        const gamesWithImages = await Promise.all(
-          formattedGames.map(async (game) => {
-            try {
-              const response = await fetch(
-                `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}&search=${encodeURIComponent(game.title)}&page_size=1`,
-                {
-                  headers: {
-                    'Accept': 'application/json',
-                  },
-                }
-              );
-              const data = await response.json();
-              if (data.results && data.results.length > 0) {
-                // Get the background image from the game details
-                const gameDetails = await fetch(
-                  `https://api.rawg.io/api/games/${data.results[0].id}?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}`,
+        // Only fetch RAWG images if the API key is available
+        if (process.env.NEXT_PUBLIC_RAWG_API_KEY) {
+          const gamesWithImages = await Promise.all(
+            formattedGames.map(async (game) => {
+              try {
+                const response = await fetch(
+                  `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}&search=${encodeURIComponent(game.title)}&page_size=1`,
                   {
                     headers: {
                       'Accept': 'application/json',
                     },
                   }
                 );
-                const details = await gameDetails.json();
-                return {
-                  ...game,
-                  image: details.background_image || details.background_image_additional || game.image,
-                };
+                const data = await response.json();
+                if (data.results && data.results.length > 0) {
+                  const gameDetails = await fetch(
+                    `https://api.rawg.io/api/games/${data.results[0].id}?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}`,
+                    {
+                      headers: {
+                        'Accept': 'application/json',
+                      },
+                    }
+                  );
+                  const details = await gameDetails.json();
+                  return {
+                    ...game,
+                    image: details.background_image || details.background_image_additional || game.image,
+                  };
+                }
+                return game;
+              } catch (error) {
+                console.error(`Error fetching image for ${game.title}:`, error);
+                return game;
               }
-              return game;
-            } catch (error) {
-              console.error(`Error fetching image for ${game.title}:`, error);
-              return game;
-            }
-          })
-        );
-
-        setGames(gamesWithImages);
-        setFilteredGames(gamesWithImages);
+            })
+          );
+          setGames(gamesWithImages);
+          setFilteredGames(gamesWithImages);
+        } else {
+          setGames(formattedGames);
+          setFilteredGames(formattedGames);
+        }
       } catch (err) {
         console.error("Unexpected error fetching chatrooms:", err);
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -133,7 +138,16 @@ export default function Home() {
           </div>
         </div>
 
-        {filteredGames.length === 0 ? (
+        {isLoading ? (
+          <div className="bg-gray-900 border border-green-900 rounded-lg p-8 text-center">
+            <h2 className="text-xl font-semibold text-green-500 mb-2">
+              Loading games...
+            </h2>
+            <p className="text-gray-400">
+              Please wait while we fetch the latest games.
+            </p>
+          </div>
+        ) : filteredGames.length === 0 ? (
           <div className="bg-gray-900 border border-green-900 rounded-lg p-8 text-center">
             <h2 className="text-xl font-semibold text-green-500 mb-2">
               No games found
