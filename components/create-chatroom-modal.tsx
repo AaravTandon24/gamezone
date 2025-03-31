@@ -179,21 +179,21 @@ export default function CreateChatroomModal({ isOpen, onClose }: CreateChatroomM
   const fetchGameImage = async (gameName: string) => {
     try {
       const response = await fetch(
-        `https://api.unsplash.com/search/photos?query=${encodeURIComponent(gameName)}&per_page=1`,
+        `https://api.pexels.com/v1/search?query=${encodeURIComponent(gameName)}&per_page=1`,
         {
           headers: {
-            Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`,
+            Authorization: process.env.NEXT_PUBLIC_PEXELS_API_KEY || '',
           },
         }
       );
       const data = await response.json();
-      if (data.results && data.results.length > 0) {
-        return data.results[0].urls.regular;
+      if (data.photos && data.photos.length > 0) {
+        return data.photos[0].src.medium;
       }
-      return "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1000&auto=format&fit=crop";
+      return "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800";
     } catch (error) {
       console.error("Error fetching image:", error);
-      return "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1000&auto=format&fit=crop";
+      return "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800";
     }
   };
 
