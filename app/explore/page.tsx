@@ -14,7 +14,8 @@ const allGames = [
   {
     id: "1",
     title: "Cyberpunk 2077",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 128,
     messages: 1024,
     tags: ["RPG", "Open World", "Sci-Fi"],
@@ -22,7 +23,8 @@ const allGames = [
   {
     id: "2",
     title: "Elden Ring",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 256,
     messages: 2048,
     tags: ["RPG", "Open World", "Fantasy"],
@@ -30,7 +32,8 @@ const allGames = [
   {
     id: "3",
     title: "Baldur's Gate 3",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 192,
     messages: 1536,
     tags: ["RPG", "Fantasy", "Turn-Based"],
@@ -38,7 +41,8 @@ const allGames = [
   {
     id: "4",
     title: "Starfield",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 164,
     messages: 1280,
     tags: ["RPG", "Space", "Open World"],
@@ -46,7 +50,8 @@ const allGames = [
   {
     id: "5",
     title: "The Legend of Zelda: Tears of the Kingdom",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 210,
     messages: 1792,
     tags: ["RPG", "Adventure", "Action"],
@@ -54,7 +59,8 @@ const allGames = [
   {
     id: "6",
     title: "Final Fantasy XVI",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 180,
     messages: 1500,
     tags: ["RPG", "Fantasy", "Action"],
@@ -62,7 +68,8 @@ const allGames = [
   {
     id: "7",
     title: "Diablo IV",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 220,
     messages: 1900,
     tags: ["RPG", "Action", "Loot"],
@@ -70,7 +77,8 @@ const allGames = [
   {
     id: "8",
     title: "Persona 5 Royal",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 150,
     messages: 1200,
     tags: ["RPG", "Turn-Based", "Anime"],
@@ -80,7 +88,8 @@ const allGames = [
   {
     id: "9",
     title: "Call of Duty: Warzone",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 320,
     messages: 2560,
     tags: ["FPS", "Battle Royale", "Multiplayer"],
@@ -88,7 +97,8 @@ const allGames = [
   {
     id: "10",
     title: "Valorant",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 290,
     messages: 2300,
     tags: ["FPS", "Tactical", "Multiplayer"],
@@ -96,7 +106,8 @@ const allGames = [
   {
     id: "11",
     title: "Apex Legends",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 310,
     messages: 2700,
     tags: ["FPS", "Battle Royale", "Multiplayer"],
@@ -104,7 +115,8 @@ const allGames = [
   {
     id: "12",
     title: "Counter-Strike 2",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 350,
     messages: 3000,
     tags: ["FPS", "Tactical", "Competitive"],
@@ -112,7 +124,8 @@ const allGames = [
   {
     id: "13",
     title: "Overwatch 2",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 280,
     messages: 2400,
     tags: ["FPS", "Hero Shooter", "Team-Based"],
@@ -120,7 +133,8 @@ const allGames = [
   {
     id: "14",
     title: "Rainbow Six Siege",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 260,
     messages: 2200,
     tags: ["FPS", "Tactical", "Competitive"],
@@ -130,7 +144,8 @@ const allGames = [
   {
     id: "15",
     title: "Fortnite",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 380,
     messages: 2900,
     tags: ["Battle Royale", "Building", "Multiplayer"],
@@ -138,7 +153,8 @@ const allGames = [
   {
     id: "16",
     title: "PUBG: Battlegrounds",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 300,
     messages: 2500,
     tags: ["Battle Royale", "FPS", "Survival"],
@@ -146,7 +162,8 @@ const allGames = [
   {
     id: "17",
     title: "Fall Guys",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 250,
     messages: 2000,
     tags: ["Battle Royale", "Party", "Multiplayer"],
@@ -156,7 +173,8 @@ const allGames = [
   {
     id: "18",
     title: "League of Legends",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 520,
     messages: 4100,
     tags: ["MOBA", "Strategy", "Multiplayer"],
@@ -164,7 +182,8 @@ const allGames = [
   {
     id: "19",
     title: "Dota 2",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 450,
     messages: 3800,
     tags: ["MOBA", "Strategy", "Competitive"],
@@ -172,7 +191,8 @@ const allGames = [
   {
     id: "20",
     title: "Age of Empires IV",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 180,
     messages: 1500,
     tags: ["Strategy", "RTS", "Historical"],
@@ -180,7 +200,8 @@ const allGames = [
   {
     id: "21",
     title: "Civilization VI",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 200,
     messages: 1700,
     tags: ["Strategy", "Turn-Based", "Historical"],
@@ -188,7 +209,8 @@ const allGames = [
   {
     id: "22",
     title: "Total War: Warhammer III",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 160,
     messages: 1400,
     tags: ["Strategy", "RTS", "Fantasy"],
@@ -198,7 +220,8 @@ const allGames = [
   {
     id: "23",
     title: "EA Sports FC 24",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 300,
     messages: 2500,
     tags: ["Sports", "Football", "Simulation"],
@@ -206,7 +229,8 @@ const allGames = [
   {
     id: "24",
     title: "NBA 2K24",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 250,
     messages: 2100,
     tags: ["Sports", "Basketball", "Simulation"],
@@ -214,7 +238,8 @@ const allGames = [
   {
     id: "25",
     title: "Madden NFL 24",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 280,
     messages: 2300,
     tags: ["Sports", "Football", "Simulation"],
@@ -224,7 +249,8 @@ const allGames = [
   {
     id: "26",
     title: "Forza Motorsport",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 220,
     messages: 1800,
     tags: ["Racing", "Simulation", "Sports"],
@@ -232,7 +258,8 @@ const allGames = [
   {
     id: "27",
     title: "Need for Speed Unbound",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 180,
     messages: 1500,
     tags: ["Racing", "Action", "Arcade"],
@@ -240,7 +267,8 @@ const allGames = [
   {
     id: "28",
     title: "The Crew Motorfest",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 150,
     messages: 1200,
     tags: ["Racing", "Open World", "Multiplayer"],
@@ -250,7 +278,8 @@ const allGames = [
   {
     id: "29",
     title: "Street Fighter 6",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 200,
     messages: 1700,
     tags: ["Fighting", "Competitive", "Arcade"],
@@ -258,7 +287,8 @@ const allGames = [
   {
     id: "30",
     title: "Mortal Kombat 1",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 180,
     messages: 1500,
     tags: ["Fighting", "Action", "Competitive"],
@@ -266,7 +296,8 @@ const allGames = [
   {
     id: "31",
     title: "Tekken 8",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 160,
     messages: 1400,
     tags: ["Fighting", "Competitive", "Arcade"],
@@ -276,7 +307,8 @@ const allGames = [
   {
     id: "32",
     title: "Minecraft",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 450,
     messages: 3200,
     tags: ["Survival", "Sandbox", "Building"],
@@ -284,7 +316,8 @@ const allGames = [
   {
     id: "33",
     title: "ARK: Survival Ascended",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 180,
     messages: 1500,
     tags: ["Survival", "Open World", "Dinosaurs"],
@@ -292,7 +325,8 @@ const allGames = [
   {
     id: "34",
     title: "Rust",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 220,
     messages: 1900,
     tags: ["Survival", "Multiplayer", "PvP"],
@@ -302,7 +336,8 @@ const allGames = [
   {
     id: "35",
     title: "God of War Ragnarök",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 280,
     messages: 2400,
     tags: ["Adventure", "Action", "Story"],
@@ -310,7 +345,8 @@ const allGames = [
   {
     id: "36",
     title: "Horizon Forbidden West",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 240,
     messages: 2000,
     tags: ["Adventure", "Open World", "Action"],
@@ -318,7 +354,8 @@ const allGames = [
   {
     id: "37",
     title: "Spider-Man 2",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 260,
     messages: 2200,
     tags: ["Adventure", "Action", "Open World"],
@@ -328,7 +365,8 @@ const allGames = [
   {
     id: "38",
     title: "Sea of Stars",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 150,
     messages: 1200,
     tags: ["Indie", "RPG", "Retro"],
@@ -336,7 +374,8 @@ const allGames = [
   {
     id: "39",
     title: "Dave the Diver",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 180,
     messages: 1500,
     tags: ["Indie", "Adventure", "Simulation"],
@@ -344,7 +383,8 @@ const allGames = [
   {
     id: "40",
     title: "Bomb Rush Cyberfunk",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 120,
     messages: 1000,
     tags: ["Indie", "Action", "Rhythm"],
@@ -354,7 +394,8 @@ const allGames = [
   {
     id: "41",
     title: "The Sims 4",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 300,
     messages: 2500,
     tags: ["Simulation", "Life", "Sandbox"],
@@ -362,7 +403,8 @@ const allGames = [
   {
     id: "42",
     title: "Cities: Skylines II",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 200,
     messages: 1700,
     tags: ["Simulation", "City Building", "Strategy"],
@@ -370,7 +412,8 @@ const allGames = [
   {
     id: "43",
     title: "PowerWash Simulator",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 150,
     messages: 1200,
     tags: ["Simulation", "Relaxing", "Indie"],
@@ -380,7 +423,8 @@ const allGames = [
   {
     id: "44",
     title: "Resident Evil 4 Remake",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 220,
     messages: 1900,
     tags: ["Horror", "Action", "Survival"],
@@ -388,7 +432,8 @@ const allGames = [
   {
     id: "45",
     title: "Dead Space Remake",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 180,
     messages: 1500,
     tags: ["Horror", "Action", "Sci-Fi"],
@@ -396,7 +441,8 @@ const allGames = [
   {
     id: "46",
     title: "Alan Wake 2",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 160,
     messages: 1400,
     tags: ["Horror", "Action", "Story"],
@@ -406,7 +452,8 @@ const allGames = [
   {
     id: "47",
     title: "Super Mario Wonder",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 240,
     messages: 2000,
     tags: ["Platform", "Family", "Nintendo"],
@@ -414,7 +461,8 @@ const allGames = [
   {
     id: "48",
     title: "Sonic Superstars",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 180,
     messages: 1500,
     tags: ["Platform", "Family", "Action"],
@@ -422,7 +470,8 @@ const allGames = [
   {
     id: "49",
     title: "Crash Bandicoot 4",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 160,
     messages: 1400,
     tags: ["Platform", "Family", "Action"],
@@ -430,7 +479,8 @@ const allGames = [
   {
     id: "50",
     title: "Spyro Reignited Trilogy",
-    image: "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image:
+      "https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=800",
     users: 140,
     messages: 1200,
     tags: ["Platform", "Family", "Adventure"],
@@ -449,10 +499,12 @@ export default function ExplorePage() {
         games.map(async (game) => {
           try {
             const response = await fetch(
-              `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}&search=${encodeURIComponent(game.title)}&page_size=1`,
+              `https://api.rawg.io/api/games?key=${
+                process.env.NEXT_PUBLIC_RAWG_API_KEY
+              }&search=${encodeURIComponent(game.title)}&page_size=1`,
               {
                 headers: {
-                  'Accept': 'application/json',
+                  Accept: "application/json",
                 },
               }
             );
@@ -463,14 +515,17 @@ export default function ExplorePage() {
                 `https://api.rawg.io/api/games/${data.results[0].id}?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}`,
                 {
                   headers: {
-                    'Accept': 'application/json',
+                    Accept: "application/json",
                   },
                 }
               );
               const details = await gameDetails.json();
               return {
                 ...game,
-                image: details.background_image || details.background_image_additional || "https://images.rawg.io/placeholder.svg",
+                image:
+                  details.background_image ||
+                  details.background_image_additional ||
+                  "https://images.rawg.io/placeholder.svg",
               };
             }
             return game;

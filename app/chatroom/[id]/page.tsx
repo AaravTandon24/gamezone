@@ -14,11 +14,11 @@ import { User } from "@supabase/supabase-js";
 export default function ChatroomPage() {
   const params = useParams();
   const router = useRouter();
-  const chatroomId = params.id as string;
+  const chatroomId = Array.isArray(params.id) ? params.id[0] : params.id;
+
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [currentUsername, setCurrentUsername] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
-
   const [chatroom, setChatroom] = useState<{ id: string; name: string } | null>(
     null
   );
@@ -34,28 +34,30 @@ export default function ChatroomPage() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Fetch current user
   useEffect(() => {
-    // Get current user
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    async function fetchUser() {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       setCurrentUser(session?.user ?? null);
-      if (session?.user) {
-        setCurrentUsername(session.user.user_metadata.username);
-      }
-    });
+      setCurrentUsername(session?.user?.user_metadata?.username ?? null);
+    }
+
+    fetchUser();
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setCurrentUser(session?.user ?? null);
-      if (session?.user) {
-        setCurrentUsername(session.user.user_metadata.username);
-      } else {
-        setCurrentUsername(null);
+    const { data: subscription } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setCurrentUser(session?.user ?? null);
+        setCurrentUsername(session?.user?.user_metadata?.username ?? null);
       }
-    });
+    );
 
-    return () => subscription.unsubscribe();
+    return () => subscription?.subscription?.unsubscribe();
   }, []);
 
+  // Fetch chatroom details
   useEffect(() => {
     if (!chatroomId || chatroomId.length !== 36) {
       console.error("Invalid Chatroom ID:", chatroomId);
@@ -78,7 +80,10 @@ export default function ChatroomPage() {
     fetchChatroom();
   }, [chatroomId]);
 
+  // Fetch chat messages
   useEffect(() => {
+    if (!chatroomId || !currentUsername) return;
+
     async function fetchMessages() {
       const { data, error } = await supabase
         .from("messages")
@@ -101,13 +106,13 @@ export default function ChatroomPage() {
       }
     }
 
-    if (currentUsername) {
-      fetchMessages();
-    }
+    fetchMessages();
   }, [chatroomId, currentUsername]);
 
   // Real-time message listener
   useEffect(() => {
+    if (!chatroomId) return;
+
     const channel = supabase
       .channel(`chatroom-${chatroomId}`)
       .on(
@@ -136,65 +141,60 @@ export default function ChatroomPage() {
     };
   }, [chatroomId, currentUsername]);
 
+  // Scroll to the latest message
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Handle sending messages
   const handleSendMessage = async (content: string) => {
     if (!currentUsername) return;
 
     try {
-      const newMessage = {
-        chatroom_id: chatroomId,
-        username: currentUsername,
-        content,
-        created_at: new Date().toISOString(),
-      };
-
-      console.log("Sending message:", newMessage);
-
-      const { data, error } = await supabase
-        .from("messages")
-        .insert([newMessage])
-        .select("id, username, content, created_at");
+      const { error } = await supabase.from("messages").insert([
+        {
+          chatroom_id: chatroomId,
+          username: currentUsername,
+          content,
+          created_at: new Date().toISOString(),
+        },
+      ]);
 
       if (error) {
-        console.error(
-          "Error sending message:",
-          error.message,
-          error.details,
-          error.hint
-        );
+        console.error("Error sending message:", error.message);
       }
     } catch (e) {
       console.error("Exception in handleSendMessage:", e);
     }
   };
 
+  // Handle chatroom deletion
   const handleDeleteChatroom = async () => {
-    if (!confirm("Are you sure you want to delete this chatroom? This action cannot be undone.")) {
+    if (
+      !confirm(
+        "Are you sure you want to delete this chatroom? This action cannot be undone."
+      )
+    ) {
       return;
     }
 
     setIsDeleting(true);
     try {
-      // First delete all messages in the chatroom
+      // Delete messages first
       const { error: messagesError } = await supabase
         .from("messages")
         .delete()
         .eq("chatroom_id", chatroomId);
-
       if (messagesError) throw messagesError;
 
-      // Then delete the chatroom
+      // Delete chatroom
       const { error: chatroomError } = await supabase
         .from("chatrooms")
         .delete()
         .eq("id", chatroomId);
-
       if (chatroomError) throw chatroomError;
 
-      // Redirect to home page after successful deletion
+      // Redirect to home
       router.push("/");
     } catch (error: any) {
       console.error("Error deleting chatroom:", error);
@@ -236,7 +236,7 @@ export default function ChatroomPage() {
                 variant="ghost"
                 onClick={handleDeleteChatroom}
                 disabled={isDeleting}
-                className="text-red-500 hover:text-red-400 hover:bg-red-500/10"
+                className="text-red-500 hover:text-red-400"
               >
                 <Trash2 className="h-5 w-5" />
               </Button>
@@ -245,18 +245,14 @@ export default function ChatroomPage() {
         </div>
 
         <div className="flex-1 overflow-y-auto container mx-auto px-4 py-6">
-          <div className="space-y-4">
-            {messages.map((message) => (
-              <ChatMessage key={message.id} message={message} />
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
+          {messages.map((message) => (
+            <ChatMessage key={message.id} message={message} />
+          ))}
+          <div ref={messagesEndRef} />
         </div>
 
         <div className="border-t border-green-900 bg-gray-900 py-4">
-          <div className="container mx-auto px-4">
-            <ChatInput onSendMessage={handleSendMessage} />
-          </div>
+          <ChatInput onSendMessage={handleSendMessage} />
         </div>
       </div>
     </div>

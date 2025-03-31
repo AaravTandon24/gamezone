@@ -20,46 +20,37 @@ export default function AuthPage() {
 
     try {
       if (isLogin) {
-        // Handle login
         const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
 
-        if (error) throw error;
-
-        if (data.user) {
-          router.push("/"); // Redirect to home page after successful login
-        }
+        if (error) throw new Error(error.message);
+        if (data?.user) router.push("/");
       } else {
-        // Handle signup
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            data: {
-              username,
-            },
+            data: { username },
             emailRedirectTo: `${window.location.origin}/auth/callback`,
           },
         });
 
-        if (error) throw error;
-
-        if (data.user) {
-          // Automatically sign in after successful signup
-          const { error: signInError } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-          });
-
-          if (signInError) throw signInError;
-
-          router.push("/"); // Redirect to home page after successful signup and signin
+        if (error) throw new Error(error.message);
+        if (data?.user) {
+          const { error: signInError } = await supabase.auth.signInWithPassword(
+            {
+              email,
+              password,
+            }
+          );
+          if (signInError) throw new Error(signInError.message);
+          router.push("/");
         }
       }
-    } catch (error: any) {
-      setError(error.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) setError(err.message);
     }
   };
 
@@ -70,19 +61,16 @@ export default function AuthPage() {
           <h1 className="text-3xl font-bold text-green-500 mb-2 text-center">
             {isLogin ? "Welcome Back" : "Create Account"}
           </h1>
-          
           <p className="text-green-400 text-center mb-8">
-            {isLogin 
-              ? "Sign in to continue to GameChat" 
+            {isLogin
+              ? "Sign in to continue to GameChat"
               : "Join the gaming community today"}
           </p>
-
           {error && (
             <div className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-2 rounded mb-6">
               {error}
             </div>
           )}
-
           <div className="bg-black border border-green-900 rounded-lg p-6 md:p-8 shadow-lg">
             <form className="space-y-6" onSubmit={handleSubmit}>
               {!isLogin && (
@@ -98,7 +86,6 @@ export default function AuthPage() {
                   />
                 </div>
               )}
-              
               <div className="space-y-2">
                 <label className="text-green-400 block">Email</label>
                 <Input
@@ -110,7 +97,6 @@ export default function AuthPage() {
                   placeholder="Enter your email"
                 />
               </div>
-
               <div className="space-y-2">
                 <label className="text-green-400 block">Password</label>
                 <Input
@@ -122,23 +108,21 @@ export default function AuthPage() {
                   placeholder="Enter your password"
                 />
               </div>
-
-              <Button 
+              <Button
                 type="submit"
                 className="w-full bg-green-600 hover:bg-green-700 text-black font-bold py-2"
               >
                 {isLogin ? "Sign In" : "Sign Up"}
               </Button>
             </form>
-
             <div className="mt-6 text-center">
               <button
                 type="button"
                 onClick={() => setIsLogin(!isLogin)}
                 className="text-green-400 hover:text-green-300 text-sm"
               >
-                {isLogin 
-                  ? "Don't have an account? Sign up" 
+                {isLogin
+                  ? "Don't have an account? Sign up"
                   : "Already have an account? Sign in"}
               </button>
             </div>
@@ -147,4 +131,4 @@ export default function AuthPage() {
       </div>
     </div>
   );
-} 
+}
