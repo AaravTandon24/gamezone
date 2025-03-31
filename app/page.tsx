@@ -56,10 +56,12 @@ export default function Home() {
           formattedGames.map(async (game) => {
             try {
               const response = await fetch(
-                `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}&search=${encodeURIComponent(game.title)}&page_size=1`,
+                `https://api.rawg.io/api/games?key=${
+                  process.env.NEXT_PUBLIC_RAWG_API_KEY
+                }&search=${encodeURIComponent(game.title)}&page_size=1`,
                 {
                   headers: {
-                    'Accept': 'application/json',
+                    Accept: "application/json",
                   },
                 }
               );
@@ -70,14 +72,17 @@ export default function Home() {
                   `https://api.rawg.io/api/games/${data.results[0].id}?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}`,
                   {
                     headers: {
-                      'Accept': 'application/json',
+                      Accept: "application/json",
                     },
                   }
                 );
                 const details = await gameDetails.json();
                 return {
                   ...game,
-                  image: details.background_image || details.background_image_additional || game.image,
+                  image:
+                    details.background_image ||
+                    details.background_image_additional ||
+                    game.image,
                 };
               }
               return game;
@@ -112,7 +117,7 @@ export default function Home() {
       <main className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
           <h1 className="text-3xl font-bold text-green-500">Game Chatrooms</h1>
-          
+
           <div className="flex items-center gap-4 w-full md:w-auto">
             <div className="relative flex-1 md:w-80">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -124,7 +129,7 @@ export default function Home() {
                 className="pl-10 bg-gray-900 border-green-700 text-white placeholder:text-gray-400 focus:border-green-500"
               />
             </div>
-            <Button 
+            <Button
               onClick={() => setIsCreateModalOpen(true)}
               className="bg-green-600 hover:bg-green-700 text-black font-bold whitespace-nowrap"
             >
@@ -139,7 +144,7 @@ export default function Home() {
               No games found
             </h2>
             <p className="text-gray-400">
-              Try adjusting your search to find what you're looking for.
+              Try adjusting your search to find what you are looking for.
             </p>
           </div>
         ) : (
@@ -151,9 +156,9 @@ export default function Home() {
         )}
       </main>
 
-      <CreateChatroomModal 
-        isOpen={isCreateModalOpen} 
-        onClose={() => setIsCreateModalOpen(false)} 
+      <CreateChatroomModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
       />
     </div>
   );

@@ -16,7 +16,6 @@ export default function ChatroomPage() {
   const router = useRouter();
   const chatroomId = Array.isArray(params.id) ? params.id[0] : params.id;
 
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [currentUsername, setCurrentUsername] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [chatroom, setChatroom] = useState<{ id: string; name: string } | null>(
@@ -40,7 +39,6 @@ export default function ChatroomPage() {
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      setCurrentUser(session?.user ?? null);
       setCurrentUsername(session?.user?.user_metadata?.username ?? null);
     }
 
@@ -49,7 +47,6 @@ export default function ChatroomPage() {
     // Listen for auth changes
     const { data: subscription } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-        setCurrentUser(session?.user ?? null);
         setCurrentUsername(session?.user?.user_metadata?.username ?? null);
       }
     );
@@ -196,7 +193,7 @@ export default function ChatroomPage() {
 
       // Redirect to home
       router.push("/");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error deleting chatroom:", error);
       alert("Failed to delete chatroom. Please try again.");
     } finally {

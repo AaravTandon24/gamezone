@@ -1,18 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { cn } from "@/lib/utils";
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
-  CommandItem,
 } from "@/components/ui/command";
 import {
   Popover,
@@ -44,7 +42,7 @@ const POPULAR_GAMES = [
   "Brawlhalla",
   "Smite",
   "Splitgate",
-  
+
   // MMORPGs
   "World of Warcraft",
   "Final Fantasy XIV",
@@ -59,7 +57,7 @@ const POPULAR_GAMES = [
   "Star Wars: The Old Republic",
   "RuneScape",
   "MapleStory",
-  
+
   // Action RPGs
   "Elden Ring",
   "Baldur's Gate 3",
@@ -74,7 +72,7 @@ const POPULAR_GAMES = [
   "Monster Hunter: World",
   "Monster Hunter Rise",
   "Dragon's Dogma 2",
-  
+
   // Sports Games
   "FIFA 24",
   "NBA 2K24",
@@ -85,7 +83,7 @@ const POPULAR_GAMES = [
   "NHL 24",
   "WWE 2K24",
   "UFC 5",
-  
+
   // Fighting Games
   "Street Fighter 6",
   "Mortal Kombat 1",
@@ -95,7 +93,7 @@ const POPULAR_GAMES = [
   "Super Smash Bros. Ultimate",
   "King of Fighters XV",
   "Melty Blood: Type Lumina",
-  
+
   // Action-Adventure
   "GTA V",
   "Red Dead Redemption 2",
@@ -109,7 +107,7 @@ const POPULAR_GAMES = [
   "Marvel's Spider-Man",
   "Ratchet & Clank: Rift Apart",
   "Returnal",
-  
+
   // Survival Games
   "Minecraft",
   "Among Us",
@@ -121,7 +119,7 @@ const POPULAR_GAMES = [
   "7 Days to Die",
   "The Forest",
   "Subnautica",
-  
+
   // Horror Games
   "Resident Evil 4",
   "Dead Space",
@@ -130,7 +128,7 @@ const POPULAR_GAMES = [
   "Amnesia: The Bunker",
   "Phasmophobia",
   "Dead by Daylight",
-  
+
   // Strategy Games
   "Age of Empires IV",
   "Civilization VI",
@@ -140,7 +138,7 @@ const POPULAR_GAMES = [
   "Crusader Kings III",
   "Europa Universalis IV",
   "Stellaris",
-  
+
   // Racing Games
   "Forza Motorsport",
   "Need for Speed Unbound",
@@ -148,7 +146,7 @@ const POPULAR_GAMES = [
   "Wreckfest",
   "Dirt Rally 2.0",
   "F1 23",
-  
+
   // Platformers
   "Super Mario Wonder",
   "Sonic Superstars",
@@ -156,7 +154,7 @@ const POPULAR_GAMES = [
   "Spyro Reignited Trilogy",
   "Hollow Knight",
   "Ori and the Will of the Wisps",
-  
+
   // Indie Games
   "Baldur's Gate 3",
   "Sea of Stars",
@@ -165,10 +163,13 @@ const POPULAR_GAMES = [
   "Cocoon",
   "Viewfinder",
   "Jusant",
-  "Venba"
+  "Venba",
 ];
 
-export default function CreateChatroomModal({ isOpen, onClose }: CreateChatroomModalProps) {
+export default function CreateChatroomModal({
+  isOpen,
+  onClose,
+}: CreateChatroomModalProps) {
   const [open, setOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState("");
   const [title, setTitle] = useState("");
@@ -179,10 +180,12 @@ export default function CreateChatroomModal({ isOpen, onClose }: CreateChatroomM
   const fetchGameImage = async (gameName: string) => {
     try {
       const response = await fetch(
-        `https://api.pexels.com/v1/search?query=${encodeURIComponent(gameName)}&per_page=1`,
+        `https://api.pexels.com/v1/search?query=${encodeURIComponent(
+          gameName
+        )}&per_page=1`,
         {
           headers: {
-            Authorization: process.env.NEXT_PUBLIC_PEXELS_API_KEY || '',
+            Authorization: process.env.NEXT_PUBLIC_PEXELS_API_KEY || "",
           },
         }
       );
@@ -209,7 +212,7 @@ export default function CreateChatroomModal({ isOpen, onClose }: CreateChatroomM
     }
 
     try {
-      const game = POPULAR_GAMES.find(g => g === selectedGame);
+      const game = POPULAR_GAMES.find((g) => g === selectedGame);
       if (!game) throw new Error("Invalid game selected");
 
       // First check if a chatroom with this name already exists
@@ -219,7 +222,8 @@ export default function CreateChatroomModal({ isOpen, onClose }: CreateChatroomM
         .eq("name", game)
         .single();
 
-      if (checkError && checkError.code !== "PGRST116") { // PGRST116 is "no rows returned"
+      if (checkError && checkError.code !== "PGRST116") {
+        // PGRST116 is "no rows returned"
         throw checkError;
       }
 
@@ -262,8 +266,10 @@ export default function CreateChatroomModal({ isOpen, onClose }: CreateChatroomM
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-gray-900 rounded-lg p-6 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-green-500 mb-4">Create New Chatroom</h2>
-        
+        <h2 className="text-2xl font-bold text-green-500 mb-4">
+          Create New Chatroom
+        </h2>
+
         {error && (
           <div className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-2 rounded mb-4">
             {error}
@@ -281,19 +287,19 @@ export default function CreateChatroomModal({ isOpen, onClose }: CreateChatroomM
                   aria-expanded={open}
                   className="w-full justify-between bg-black border-green-700 text-green-100 hover:bg-gray-800"
                 >
-                  {selectedGame
-                    ? selectedGame
-                    : "Select a game..."}
+                  {selectedGame ? selectedGame : "Select a game..."}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-full p-0 bg-gray-900 border-green-700">
                 <Command className="bg-gray-900">
-                  <CommandInput 
-                    placeholder="Search games..." 
+                  <CommandInput
+                    placeholder="Search games..."
                     className="text-green-100 border-green-700 focus:border-green-500"
                   />
-                  <CommandEmpty className="text-green-400 py-6 text-center">No game found.</CommandEmpty>
+                  <CommandEmpty className="text-green-400 py-6 text-center">
+                    No game found.
+                  </CommandEmpty>
                   <CommandGroup className="max-h-[300px] overflow-auto">
                     {POPULAR_GAMES.map((game) => (
                       <div
@@ -317,7 +323,9 @@ export default function CreateChatroomModal({ isOpen, onClose }: CreateChatroomM
           </div>
 
           <div>
-            <label className="block text-green-400 mb-2">Custom Title (Optional)</label>
+            <label className="block text-green-400 mb-2">
+              Custom Title (Optional)
+            </label>
             <Input
               type="text"
               value={title}
@@ -347,4 +355,4 @@ export default function CreateChatroomModal({ isOpen, onClose }: CreateChatroomM
       </div>
     </div>
   );
-} 
+}

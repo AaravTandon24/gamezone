@@ -6,6 +6,7 @@ import GameCard from "@/components/game-card";
 import SearchBar from "@/components/search-bar";
 import { Button } from "@/components/ui/button";
 import { Grid, List } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 // Sample game data with image fetching
@@ -539,7 +540,7 @@ export default function ExplorePage() {
     };
 
     fetchGameImages();
-  }, []);
+  }, [games]);
 
   // Get all unique tags
   const allTags = Array.from(
@@ -650,7 +651,7 @@ export default function ExplorePage() {
                   No games found
                 </h2>
                 <p className="text-gray-400">
-                  Try adjusting your search or filters to find what you're
+                  Try adjusting your search or filters to find what you are
                   looking for.
                 </p>
               </div>
@@ -677,7 +678,7 @@ export default function ExplorePage() {
                         className="flex bg-gray-900 border border-green-700 hover:border-green-500 rounded-lg overflow-hidden transition-all duration-300"
                       >
                         <div className="w-1/4 h-32">
-                          <img
+                          <Image
                             src={game.image || "/placeholder.svg"}
                             alt={game.title}
                             className="w-full h-full object-cover"
