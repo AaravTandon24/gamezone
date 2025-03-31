@@ -9,7 +9,6 @@ import ChatInput from "@/components/chat-input";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Users, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { User } from "@supabase/supabase-js";
 
 export default function ChatroomPage() {
   const params = useParams();

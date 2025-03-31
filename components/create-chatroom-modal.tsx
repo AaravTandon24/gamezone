@@ -254,10 +254,14 @@ export default function CreateChatroomModal({
         onClose();
         router.push(`/chatroom/${data.id}`);
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred");
+      }
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Ensures the loading state is reset
     }
   };
 

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Users, MessageSquare } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 interface GameCardProps {
@@ -16,11 +17,14 @@ interface GameCardProps {
 export default function GameCard({ game }: GameCardProps) {
   return (
     <Card className="bg-gray-900 border-green-700 hover:border-green-500 transition-all duration-300 overflow-hidden">
+      {/* Updated Image Section */}
       <div className="relative h-48 overflow-hidden">
-        <img
+        <Image
           src={game.image || "/placeholder.svg"} // ✅ Handle missing image
           alt={game.title || "Chatroom"} // ✅ Handle missing title
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+          fill // Use fill for responsive behavior
+          className="object-cover transition-transform duration-500 hover:scale-110"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Optional: Improve responsiveness
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
         <h3 className="absolute bottom-4 left-4 text-xl font-bold text-white">
