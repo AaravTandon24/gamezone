@@ -10,14 +10,10 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        // Add your authentication logic here
-        // This is where you would validate against your database
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
 
-        // For demo purposes, accept any email/password combination
-        // In production, you should validate against your database
         return {
           id: "1",
           email: credentials.email,
