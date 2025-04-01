@@ -7,6 +7,8 @@ import SearchBar from "@/components/search-bar";
 import { Button } from "@/components/ui/button";
 import { Grid, List } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 
 // Sample game data with image fetching
 const allGames = [
@@ -442,6 +444,8 @@ export default function ExplorePage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [games, setGames] = useState(allGames);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchGameImages = async () => {
@@ -499,6 +503,113 @@ export default function ExplorePage() {
     const matchesTag = selectedTag ? game.tags.includes(selectedTag) : true;
     return matchesSearch && matchesTag;
   });
+
+  const handleJoinChatroom = async (gameId: string, gameTitle: string) => {
+    setIsLoading(true);
+    try {
+      // Check if user is authenticated
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      
+      if (sessionError) {
+        console.error("Session error:", sessionError);
+        throw sessionError;
+      }
+
+      if (!session) {
+        // Redirect to login page if not authenticated
+        router.push('/auth');
+        return;
+      }
+
+      // First, check if the game exists in the games table
+      const { data: gameData, error: gameError } = await supabase
+        .from("games")
+        .select("id")
+        .eq("id", gameId)
+        .single();
+
+      if (gameError && gameError.code !== "PGRST116") {
+        console.error("Game error:", gameError);
+        throw gameError;
+      }
+
+      // If game doesn't exist, create it first
+      if (!gameData) {
+        const gameToInsert = {
+          id: gameId,
+          title: gameTitle,
+          image: games.find(g => g.id === gameId)?.image || "https://images.rawg.io/placeholder.svg",
+          users: 0,
+          messages: 0,
+          tags: games.find(g => g.id === gameId)?.tags || [],
+        };
+
+        const { data: newGame, error: createGameError } = await supabase
+          .from("games")
+          .insert([gameToInsert])
+          .select()
+          .single();
+
+        if (createGameError) {
+          console.error("Create game error:", createGameError);
+          throw createGameError;
+        }
+
+        if (!newGame) {
+          throw new Error("Failed to create game");
+        }
+      }
+
+      // Now check if chatroom exists for this game
+      const { data: existingChatroom, error: chatroomError } = await supabase
+        .from("chatrooms")
+        .select("id")
+        .eq("game_id", gameId)
+        .single();
+
+      if (chatroomError && chatroomError.code !== "PGRST116") {
+        console.error("Chatroom error:", chatroomError);
+        throw chatroomError;
+      }
+
+      if (!existingChatroom) {
+        // Create new chatroom if it doesn't exist
+        const chatroomToInsert = {
+          name: gameTitle,
+          title: gameTitle,
+          game_id: gameId,
+          image: games.find(g => g.id === gameId)?.image || "https://images.rawg.io/placeholder.svg",
+          created_by: session.user.id,
+          users: 0,
+          messages: 0,
+        };
+
+        const { data: newChatroom, error: createError } = await supabase
+          .from("chatrooms")
+          .insert([chatroomToInsert])
+          .select()
+          .single();
+
+        if (createError) {
+          console.error("Create chatroom error:", createError);
+          throw createError;
+        }
+
+        if (!newChatroom) {
+          throw new Error("Failed to create chatroom");
+        }
+
+        router.push(`/chatroom/${newChatroom.id}`);
+      } else {
+        router.push(`/chatroom/${existingChatroom.id}`);
+      }
+    } catch (error) {
+      console.error("Error joining chatroom:", error);
+      // You might want to show an error message to the user here
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-black">
@@ -611,7 +722,18 @@ export default function ExplorePage() {
                 {viewMode === "grid" ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredGames.map((game) => (
-                      <GameCard key={game.id} game={game} />
+                      <div key={game.id} className="relative group">
+                        <GameCard game={game} />
+                        <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <Button
+                            onClick={() => handleJoinChatroom(game.id, game.title)}
+                            className="bg-green-600 hover:bg-green-700 text-black font-bold"
+                            disabled={isLoading}
+                          >
+                            {isLoading ? "Joining..." : "Join Chatroom"}
+                          </Button>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 ) : (
@@ -648,14 +770,23 @@ export default function ExplorePage() {
                             <div className="text-sm text-green-400">
                               {game.users} users • {game.messages} messages
                             </div>
-                            <Link href={`/chatroom/${game.id}`}>
+                            <div className="relative group">
                               <Button
                                 className="bg-green-600 hover:bg-green-700 text-black font-bold"
-                                size="sm"
+                                disabled={isLoading}
                               >
-                                Join
+                                {isLoading ? "Joining..." : "Join Chatroom"}
                               </Button>
-                            </Link>
+                              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <Button
+                                  onClick={() => handleJoinChatroom(game.id, game.title)}
+                                  className="bg-green-600 hover:bg-green-700 text-black font-bold"
+                                  disabled={isLoading}
+                                >
+                                  {isLoading ? "Joining..." : "Join Chatroom"}
+                                </Button>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
